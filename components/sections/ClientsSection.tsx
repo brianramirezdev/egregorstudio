@@ -3,8 +3,8 @@ import Marquee from '@/components/marquee';
 
 export default function ClientsSection() {
     return (
-        <section id="clientes" className="bg-black py-24 text-white">
-            <Marquee text="TOTI SANZ · CLIENTES · MARCAS · PROYECTOS" speed="slow" dark xl />
+        <section id="clientes">
+            <Marquee text="TOTI SANZ ✧ CLIENTES ✧ MARCAS ✧ PROYECTOS ✧" border xl itemClassName="py-12 md:py-24" />
         </section>
     );
 }

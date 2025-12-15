@@ -1,124 +1,129 @@
-import { SiInstagram, SiYoutube, SiSpotify, SiTiktok } from '@icons-pack/react-simple-icons';
-import Link from 'next/link';
-import Image from 'next/image';
-import EgregorLogo from '@/components/ui/egregor-logo';
+'use client';
 
-const socialLinks = [
-    {
-        name: 'Instagram',
-        href: 'https://www.instagram.com/toti.sanz/',
-        icon: SiInstagram,
-        color: 'hover:text-pink-500',
-    },
-    {
-        name: 'YouTube',
-        href: 'https://www.youtube.com/@TotiSanz',
-        icon: SiYoutube,
-        color: 'hover:text-red-500',
-    },
-    {
-        name: 'Spotify',
-        href: 'https://open.spotify.com/intl-es/artist/0RWI1GOUTOVYETw5uVKmRC',
-        icon: SiSpotify,
-        color: 'hover:text-green-500',
-    },
-    {
-        name: 'TikTok',
-        href: 'https://www.tiktok.com/@toti.sanz',
-        icon: SiTiktok,
-        color: 'hover:text-white',
-    },
-];
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { SiInstagram } from '@icons-pack/react-simple-icons';
+import EgregorLogo from '../ui/egregor-logo';
 
-const quickLinks = [
-    { name: 'Inicio', href: '#inicio' },
-    { name: 'Single', href: '#single' },
-    { name: 'Álbum', href: '#album' },
-    { name: 'Conciertos', href: '#conciertos' },
-    { name: 'Biografía', href: '#biografia' },
-    { name: 'Merch', href: '#merch' },
-    { name: 'Comunidad', href: '#comunidad' },
-    { name: 'Contacto', href: '#contacto' },
+gsap.registerPlugin(ScrollTrigger);
+
+const navigation = [
+    ['Inicio', '#inicio'],
+    ['Servicios', '#servicios'],
+    ['Portfolio', '#portfolio'],
+    ['Proceso', '#proceso'],
+    ['Nosotros', '#nosotros'],
+    ['Contacto', '#contacto'],
 ];
 
 export default function Footer() {
+    const footerRef = useRef(null);
+    const logoRef = useRef(null);
+    const contentRef = useRef(null);
+
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            // Logo animation
+            gsap.from(logoRef.current, {
+                scrollTrigger: {
+                    trigger: footerRef.current,
+                    start: 'top 90%',
+                },
+                scale: 0,
+                opacity: 0,
+                duration: 1,
+                ease: 'back.out(1.7)',
+            });
+
+            // Content animation
+            gsap.from(contentRef.current.children, {
+                scrollTrigger: {
+                    trigger: contentRef.current,
+                    start: 'top 85%',
+                },
+                y: 40,
+                opacity: 0,
+                stagger: 0.15,
+                duration: 0.8,
+                ease: 'power3.out',
+            });
+        }, footerRef);
+
+        return () => ctx.revert();
+    }, []);
+
     return (
-        <footer className="min-h-screen bg-linear-to-b from-black to-zinc-800 px-6 py-20 text-white md:px-12 flex items-center rounded-t-2xl">
-            <div className="mx-auto flex h-full w-full max-w-7xl flex-col justify-between">
-                {/* ── Main content ── */}
-                <div className="grid gap-12 md:grid-cols-3 md:gap-16 lg:gap-24">
+        <footer ref={footerRef} className="relative bg-black px-6 py-24 text-white">
+            <div className="mx-auto max-w-7xl">
+                {/* Main content */}
+                <div ref={contentRef} className="grid gap-16 md:grid-cols-3">
                     {/* Brand */}
                     <div className="space-y-6">
-                        <h3 className="text-5xl font-bold md:text-6xl lg:text-7xl">TOTI SANZ</h3>
-                        <p className="text-xl text-gray-400 md:text-2xl lg:text-3xl">De Lanzarote para el mundo</p>
-                        <p className="text-base leading-relaxed text-gray-500 md:text-lg lg:text-xl">Cantante, músico y compositor canario. Creando música desde el corazón.</p>
+                        <div ref={logoRef}>
+                            <EgregorLogo className="h-12 w-12" />
+                        </div>
+                        <h3 className="text-3xl font-bold">Egregor Studio</h3>
+                        <p className="max-w-sm leading-relaxed text-gray-400">
+                            Estudio creativo especializado en branding, web y marketing digital. Construimos marcas con criterio, coherencia y emoción.
+                        </p>
                     </div>
 
-                    {/* Quick Links */}
+                    {/* Navigation */}
                     <div>
-                        <h4 className="mb-6 text-sm font-semibold uppercase tracking-wider text-gray-400 md:text-base">Enlaces rápidos</h4>
-                        <nav className="grid grid-cols-2 gap-4 md:gap-5">
-                            {quickLinks.map((link) => (
-                                <Link key={link.name} href={link.href} className="text-base text-gray-400 transition-colors hover:text-orange-500 md:text-lg">
-                                    {link.name}
-                                </Link>
+                        <h4 className="mb-6 text-sm font-semibold uppercase tracking-wider text-gray-500">Navegación</h4>
+                        <nav className="flex flex-col gap-3">
+                            {navigation.map(([label, href]) => (
+                                <a key={label} href={href} className="group inline-flex items-center gap-2 text-gray-400 transition-colors hover:text-blue-400">
+                                    <span className="h-px w-0 bg-blue-400 transition-all duration-300 group-hover:w-4" />
+                                    {label}
+                                </a>
                             ))}
                         </nav>
                     </div>
 
-                    {/* Social & Contact */}
+                    {/* Contact */}
                     <div>
-                        <h4 className="mb-6 text-sm font-semibold uppercase tracking-wider text-gray-400 md:text-base">Sígueme</h4>
+                        <h4 className="mb-6 text-sm font-semibold uppercase tracking-wider text-gray-500">Contacto</h4>
 
-                        <div className="mb-8 flex gap-4">
-                            {socialLinks.map((social) => (
+                        <div className="space-y-6">
+                            {/* Email */}
+                            <div className="group">
+                                <a href="mailto:hello@egregor.studio" className="block text-lg font-medium text-gray-300 transition-colors hover:text-blue-400">
+                                    hello@egregor.studio
+                                </a>
+                                <div className="mt-2 h-px w-0 bg-blue-400 transition-all duration-300 group-hover:w-full" />
+                            </div>
+
+                            {/* Social */}
+                            <div>
                                 <a
-                                    key={social.name}
-                                    href={social.href}
+                                    href="https://www.instagram.com/egregor.studio/"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    aria-label={social.name}
-                                    className={`flex h-14 w-14 items-center justify-center rounded-full border border-white/20 transition-all hover:scale-110 md:h-16 md:w-16 ${social.color}`}
+                                    aria-label="Instagram"
+                                    className="group inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/10 transition-all hover:border-blue-400 hover:bg-blue-400/10"
                                 >
-                                    <social.icon className="h-6 w-6 md:h-7 md:w-7" />
+                                    <SiInstagram className="h-5 w-5 text-gray-400 transition-colors group-hover:text-blue-400" />
                                 </a>
-                            ))}
-                        </div>
-
-                        <div className="space-y-3">
-                            <p className="text-sm text-gray-500 md:text-base">Email</p>
-                            <a href="mailto:contacto@totisanz.com" className="block text-base text-gray-400 transition-colors hover:text-orange-500 md:text-lg lg:text-xl">
-                                contacto@totisanz.com
-                            </a>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                {/* ── Bottom ── */}
-                <div className="mt-16 border-t border-white/10 pt-8 flex flex-col items-center justify-between gap-6 text-base text-gray-500 md:flex-row md:text-lg">
-                    <p>© {new Date().getFullYear()} Toti Sanz. Todos los derechos reservados.</p>
-                    <div className="flex gap-8">
-                        <Link href="/privacy" className="transition-colors hover:text-gray-400">
-                            Privacidad
-                        </Link>
-                        <Link href="/terms" className="transition-colors hover:text-gray-400">
-                            Términos
-                        </Link>
+                {/* Bottom */}
+                <div className="mt-20 flex flex-col items-center justify-between gap-6 border-t border-white/10 pt-10 text-sm text-gray-500 md:flex-row">
+                    <p>© {new Date().getFullYear()} Egregor Studio. Todos los derechos reservados.</p>
+
+                    <div className="flex items-center gap-3">
+                        <span className="h-1 w-1 rounded-full bg-gray-600" />
+                        <span>Branding</span>
+                        <span className="h-1 w-1 rounded-full bg-gray-600" />
+                        <span>Web</span>
+                        <span className="h-1 w-1 rounded-full bg-gray-600" />
+                        <span>Marketing Digital</span>
                     </div>
                 </div>
-                {/* ── Credits ── */}
-                <Link
-                    href="https://www.instagram.com/egregor.studio/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-md mx-auto uppercase tracking-[0.25em] text-xs md:text-base mt-28 w-fit flex flex-col items-center justify-center gap-4 text-gray-500 hover:text-gray-300 transition-colors"
-                >
-                    <div className="flex gap-2">
-                        <span>creado por</span>
-                        <span className="font-bold">egregor studio</span>
-                    </div>
-                    <EgregorLogo className="size-8 opacity-70" />
-                </Link>
             </div>
         </footer>
     );
