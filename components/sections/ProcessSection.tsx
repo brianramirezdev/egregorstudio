@@ -68,7 +68,7 @@ export default function ProcessSection() {
                                                 {/* Icon + text */}
                                                 <div className="flex flex-1 items-center gap-4">
                                                     <div
-                                                        className={`flex h-16 w-16 shrink-0 items-center justify-center rounded-xl transition-all ${
+                                                        className={`md:flex hidden h-16 w-16 shrink-0 items-center justify-center rounded-xl transition-all ${
                                                             isActive ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-600 group-hover:bg-gray-200'
                                                         }`}
                                                     >
