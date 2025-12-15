@@ -53,7 +53,7 @@ export default function ContactSection() {
                                     Contacto directo
                                 </div>
                                 <a href="mailto:hello@egregor.studio" className="block text-2xl font-semibold transition-colors hover:text-blue-500 md:text-3xl">
-                                    hello@egregor.studio
+                                    hello@egregorstudio.com
                                 </a>
                                 <div className="mt-3 h-px w-0 bg-blue-500 transition-all duration-300 group-hover:w-full" />
                             </div>

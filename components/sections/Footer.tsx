@@ -1,12 +1,5 @@
-'use client';
-
-import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SiInstagram } from '@icons-pack/react-simple-icons';
 import EgregorLogo from '../ui/egregor-logo';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const navigation = [
     ['Inicio', '#inicio'],
@@ -18,51 +11,14 @@ const navigation = [
 ];
 
 export default function Footer() {
-    const footerRef = useRef(null);
-    const logoRef = useRef(null);
-    const contentRef = useRef(null);
-
-    useEffect(() => {
-        const ctx = gsap.context(() => {
-            // Logo animation
-            gsap.from(logoRef.current, {
-                scrollTrigger: {
-                    trigger: footerRef.current,
-                    start: 'top 90%',
-                },
-                scale: 0,
-                opacity: 0,
-                duration: 1,
-                ease: 'back.out(1.7)',
-            });
-
-            // Content animation
-            gsap.from(contentRef.current.children, {
-                scrollTrigger: {
-                    trigger: contentRef.current,
-                    start: 'top 85%',
-                },
-                y: 40,
-                opacity: 0,
-                stagger: 0.15,
-                duration: 0.8,
-                ease: 'power3.out',
-            });
-        }, footerRef);
-
-        return () => ctx.revert();
-    }, []);
-
     return (
-        <footer ref={footerRef} className="relative bg-black px-6 py-24 text-white">
+        <footer className="relative bg-black px-6 py-24 text-white min-h-screen flex items-center">
             <div className="mx-auto max-w-7xl">
                 {/* Main content */}
-                <div ref={contentRef} className="grid gap-16 md:grid-cols-3">
+                <div className="grid gap-16 md:grid-cols-3">
                     {/* Brand */}
                     <div className="space-y-6">
-                        <div ref={logoRef}>
-                            <EgregorLogo className="h-12 w-12" />
-                        </div>
+                        <EgregorLogo className="h-12 w-12" />
                         <h3 className="text-3xl font-bold">Egregor Studio</h3>
                         <p className="max-w-sm leading-relaxed text-gray-400">
                             Estudio creativo especializado en branding, web y marketing digital. Construimos marcas con criterio, coherencia y emoción.
@@ -96,17 +52,15 @@ export default function Footer() {
                             </div>
 
                             {/* Social */}
-                            <div>
-                                <a
-                                    href="https://www.instagram.com/egregor.studio/"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    aria-label="Instagram"
-                                    className="group inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/10 transition-all hover:border-blue-400 hover:bg-blue-400/10"
-                                >
-                                    <SiInstagram className="h-5 w-5 text-gray-400 transition-colors group-hover:text-blue-400" />
-                                </a>
-                            </div>
+                            <a
+                                href="https://www.instagram.com/egregor.studio/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="Instagram"
+                                className="group inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/10 transition-all hover:border-blue-400 hover:bg-blue-400/10"
+                            >
+                                <SiInstagram className="h-5 w-5 text-gray-400 transition-colors group-hover:text-blue-400" />
+                            </a>
                         </div>
                     </div>
                 </div>
