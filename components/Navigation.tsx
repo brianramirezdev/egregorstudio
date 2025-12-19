@@ -24,12 +24,17 @@ export default function Navigation() {
     };
 
     return (
-        <nav className="fixed top-0 z-50 w-full border-b border-black/10 bg-white/90 backdrop-blur-md dark:border-white/10 dark:bg-black/80">
-            <div className="mx-auto flex max-w-7xl items-center lg:justify-center px-6 py-4 lg:px-8">
+        <nav className="fixed top-0 z-50 w-full bg-black/40 backdrop-blur-xl">
+            <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-8">
+                {/* Logo (opcional, discreto) */}
+                <div className="flex items-center gap-2">
+                    <EgregorLogo className="h-6 w-6 text-white/80" />
+                </div>
+
                 {/* Desktop Navigation */}
-                <div className="hidden items-center gap-8 md:flex">
+                <div className="hidden md:flex items-center gap-10">
                     {links.map(([label, href]) => (
-                        <Link key={label} href={href} className="text-sm font-medium transition-colors hover:text-blue-500">
+                        <Link key={label} href={href} className="text-xs tracking-[0.25em] text-white/70 transition-colors hover:text-white">
                             {label}
                         </Link>
                     ))}
@@ -37,31 +42,26 @@ export default function Navigation() {
 
                 {/* Mobile Menu */}
                 <Sheet open={isOpen} onOpenChange={setIsOpen}>
-                    <SheetTrigger asChild className="md:hidden ml-auto">
+                    <SheetTrigger asChild className="md:hidden">
                         <button aria-label="Abrir menú">
-                            <Menu className="h-5 w-5" />
+                            <Menu className="h-5 w-5 text-white" />
                         </button>
                     </SheetTrigger>
 
-                    <SheetContent side="right" className="w-full max-w-sm p-6">
+                    <SheetContent side="right" className="w-full max-w-sm bg-black p-8">
                         <SheetTitle className="sr-only">Menú de navegación</SheetTitle>
 
                         {/* Mobile Header */}
-                        <div className="mb-8 flex items-center gap-3 border-b border-black/10 pb-6 dark:border-white/10">
-                            <EgregorLogo className="h-8 w-8 text-blue-500" />
-                            <span className="text-lg font-semibold">Egregor Studio</span>
+                        <div className="mb-10 flex items-center gap-3">
+                            <EgregorLogo className="h-8 w-8 text-white" />
+                            <span className="text-lg font-semibold text-white">Egregor</span>
                         </div>
 
                         {/* Mobile Links */}
-                        <nav className="flex flex-col">
+                        <nav className="flex flex-col gap-6">
                             {links.map(([label, href]) => (
-                                <Link
-                                    key={label}
-                                    href={href}
-                                    onClick={handleLinkClick}
-                                    className="flex items-center justify-between border-b border-black/10 py-4 text-lg transition-colors hover:text-blue-500 dark:border-white/10"
-                                >
-                                    <span>{label}</span>
+                                <Link key={label} href={href} onClick={handleLinkClick} className="text-2xl font-medium text-white/80 transition-colors hover:text-white">
+                                    {label}
                                 </Link>
                             ))}
                         </nav>
